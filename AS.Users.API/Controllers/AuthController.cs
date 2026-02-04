@@ -76,7 +76,7 @@ namespace AS.Users.API.Controllers
 
                 return Success(response);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

@@ -4,8 +4,8 @@ namespace AS.Users.Domain.ValueObjects;
 
 public class Password
 {
-    public string Hash { get; }
-    public string PlainText { get; private set; }
+    public string Hash { get; } = string.Empty;
+    public string PlainText { get; private set; } = string.Empty;
 
     public Password(string plainTextPassword)
     {

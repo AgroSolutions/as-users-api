@@ -4,6 +4,7 @@ using AS.Users.Application.Services;
 using AS.Users.Application.Services.Interfaces;
 using AS.Users.Domain.Entities;
 using AS.Users.Domain.Interfaces;
+using AS.Users.Infra.Data.Seedings;
 using AS.Users.Infra.Persistence.Data;
 using AS.Users.Infra.Persistence.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<ASDbContext>(options =>
 {
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("UserConnection"),
+        builder.Configuration.GetConnectionString("DefaultConnection"),
         sqlOptions => sqlOptions.EnableRetryOnFailure(
             maxRetryCount: 5,
             maxRetryDelay: TimeSpan.FromSeconds(10),
@@ -89,8 +90,19 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Environment.IsProduction())
 {
     app.UseSwaggerConfiguration();
-    await using var scope = app.Services.CreateAsyncScope();
-    await using var dbContext = scope.ServiceProvider.GetRequiredService<ASDbContext>();
+    try
+    {
+        await using var scope = app.Services.CreateAsyncScope();
+        await using var dbContext = scope.ServiceProvider.GetRequiredService<ASDbContext>();
+        if (dbContext.Database.EnsureCreated())
+        {
+            await RoleAndAdminSeeding.SeedAsync(scope.ServiceProvider);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Erro ao criar banco de dados: {ex.Message}");
+    }
 }
 else
 {

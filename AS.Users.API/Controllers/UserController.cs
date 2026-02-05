@@ -1,5 +1,6 @@
 ﻿using AS.Users.Application.DTO;
 using AS.Users.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AS.Users.API.Controllers;
@@ -31,6 +32,7 @@ public class UserController : ApiBaseController
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateUser(CreateUserModel model)
     {
         var user = await _userService.CreateUserAsync(model);
@@ -38,6 +40,7 @@ public class UserController : ApiBaseController
     }
 
     [HttpPatch("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> PartialUpdateUser(string id, UpdateUserModel model)
     {
         await _userService.UpdateUserAsync(id, model);
@@ -45,6 +48,7 @@ public class UserController : ApiBaseController
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteUser(string id)
     {
         await _userService.DeleteUserAsync(id);

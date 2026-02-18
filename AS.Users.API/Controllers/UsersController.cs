@@ -7,11 +7,11 @@ namespace AS.Users.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController : ApiBaseController
+public class UsersController : ApiBaseController
 {
     private readonly IUserService _userService;
 
-    public UserController(
+    public UsersController(
         IUserService userService)
     {
         _userService = userService;

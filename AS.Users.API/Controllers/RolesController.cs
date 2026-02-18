@@ -11,12 +11,12 @@ namespace AS.Users.API.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
-public class RoleController : ApiBaseController
+public class RolesController : ApiBaseController
 {
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<User> _userManager;
 
-    public RoleController(
+    public RolesController(
         RoleManager<IdentityRole> roleManager,
         UserManager<User> userManager)
     {

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: as-users-api
+  labels:
+    app: as-users-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: as-users-api
+  template:
+    metadata:
+      labels:
+        app: as-users-api
+    spec:
+      containers:
+        - name: as-users-api
+          image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/as-users-api:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: AWS_REGION
+              value: "${AWS_REGION}"
+            - name: AWS_DEFAULT_REGION
+              value: "${AWS_REGION}"
+          envFrom:
+            - secretRef:
+                name: aws-credentials
+            - configMapRef:
+                name: as-users-config
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

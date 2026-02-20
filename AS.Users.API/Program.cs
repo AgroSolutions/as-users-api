@@ -1,5 +1,7 @@
 ﻿using AS.Users.API.Configurations;
+using AS.Users.API.Observability;
 using AS.Users.Application.Middleware;
+using AS.Users.Application.Observability;
 using AS.Users.Application.Services;
 using AS.Users.Application.Services.Interfaces;
 using AS.Users.Domain.Entities;
@@ -71,6 +73,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddTransient<JwtService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddSingleton<IUserTelemetry, NewRelicUserTelemetry>();
 builder.Services.AddSwaggerConfiguration();
 
 

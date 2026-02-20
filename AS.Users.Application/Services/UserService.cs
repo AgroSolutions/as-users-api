@@ -6,6 +6,7 @@ using AS.Users.Domain.ValueObjects;
 using AS.Users.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using AS.Users.Application.Observability;
 
 namespace AS.Users.Application.Services;
 
@@ -14,15 +15,18 @@ public class UserService : IUserService
     private readonly UserManager<User> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IUserRepository _userRepository;
+    private readonly IUserTelemetry _userTelemetry;
 
     public UserService(
         UserManager<User> userManager,
         RoleManager<IdentityRole> roleManager,
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        IUserTelemetry telemetry)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _userRepository = userRepository;
+        _userTelemetry = telemetry;
     }
 
     public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
@@ -56,37 +60,47 @@ public class UserService : IUserService
 
     public async Task<UserDto> CreateUserAsync(CreateUserModel model)
     {
-        var exists = await _userManager.FindByEmailAsync(model.Email);
-        if (exists is not null)
-            throw new BusinessErrorDetailsException("Já existe um usuário com este email.");
-
-        var user = new User(model.Name, model.Email);
-        var password = new Password(model.Password);
-
-        var result = await _userManager.CreateAsync(user, password.PlainText);
-        if (!result.Succeeded)
-            throw new BusinessErrorDetailsException("Erro ao criar usuário: " + string.Join(", ", result.Errors.Select(e => e.Description)));
-
-        if (model.Roles != null && model.Roles.Any())
+        try
         {
-            foreach (var roleName in model.Roles)
+            var exists = await _userManager.FindByEmailAsync(model.Email);
+            if (exists is not null)
+                throw new BusinessErrorDetailsException("Já existe um usuário com este email.");
+
+            var user = new User(model.Name, model.Email);
+            var password = new Password(model.Password);
+
+            var result = await _userManager.CreateAsync(user, password.PlainText);
+            if (!result.Succeeded)
+                throw new BusinessErrorDetailsException("Erro ao criar usuário: " + string.Join(", ", result.Errors.Select(e => e.Description)));
+
+            if (model.Roles != null && model.Roles.Any())
             {
-                if (await _roleManager.RoleExistsAsync(roleName))
-                    await _userManager.AddToRoleAsync(user, roleName);
-                else
-                    throw new BusinessErrorDetailsException($"Role '{roleName}' não encontrada.");
+                foreach (var roleName in model.Roles)
+                {
+                    if (await _roleManager.RoleExistsAsync(roleName))
+                        await _userManager.AddToRoleAsync(user, roleName);
+                    else
+                        throw new BusinessErrorDetailsException($"Role '{roleName}' não encontrada.");
+                }
             }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            _userTelemetry.CreatedUser(user.Id, user.Email!);
+
+            return new UserDto
+            {
+                Id = user.Id,
+                NameUser = user.Name,
+                Email = user.Email!,
+                Roles = roles.ToList()
+            };
         }
-
-        var roles = await _userManager.GetRolesAsync(user);
-
-        return new UserDto
+        catch (Exception ex)
         {
-            Id = user.Id,
-            NameUser = user.Name,
-            Email = user.Email!,
-            Roles = roles.ToList()
-        };
+            _userTelemetry.UserSignup(userId: null, email: model.Email, success: false, failureReason: ex.GetType().Name);
+            throw;
+        }
     }
 
     public async Task UpdateUserAsync(string id, UpdateUserModel model)

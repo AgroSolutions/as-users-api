@@ -11,7 +11,7 @@ on:
 
 env:
     AS_API_NAME: as-users-api
-    AS_API_DOCKERFILE: ./as-users-api/Dockerfile
+    AS_API_DOCKERFILE: ./AS.Users.API/Dockerfile
 
 jobs:
   build:

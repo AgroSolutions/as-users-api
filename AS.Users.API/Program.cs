@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,7 +74,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddTransient<JwtService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddSingleton<IUserTelemetry, NewRelicUserTelemetry>();
+builder.Services.AddSingleton<IUserTelemetry, PrometheusUserTelemetry>();
 builder.Services.AddSwaggerConfiguration();
 
 
@@ -122,8 +123,13 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseRouting();
+app.UseHttpMetrics();
+app.MapMetrics();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

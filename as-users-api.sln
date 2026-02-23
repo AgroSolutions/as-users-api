@@ -34,6 +34,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{A32D217B-7
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{1A5C8E5B-40A0-459F-A211-1C0205ABF952}"
+	ProjectSection(SolutionItems) = preProject
+		k8s\users-api-config.yaml = k8s\users-api-config.yaml
+		k8s\users-api-deployment.yaml = k8s\users-api-deployment.yaml
+		k8s\users-api-service.yaml = k8s\users-api-service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "observability", "observability", "{A3225175-9387-405C-8F51-A794090ED1CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prometheus", "prometheus", "{861CA6CE-88E4-49E5-9259-3E781E2D6CA7}"
+	ProjectSection(SolutionItems) = preProject
+		observability\prometheus\prometheus.yml = observability\prometheus\prometheus.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +97,7 @@ Global
 		{A6F0A9F3-4F1D-4EAA-8493-6BE1BB2A3559} = {C9A2E6D4-525A-4336-8E29-DCAC154A39B2}
 		{D78823DD-8123-4034-B543-0515AC7B5B14} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{ED5C918E-9B02-4480-A26A-1FA771648714} = {D78823DD-8123-4034-B543-0515AC7B5B14}
+		{861CA6CE-88E4-49E5-9259-3E781E2D6CA7} = {A3225175-9387-405C-8F51-A794090ED1CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05C791AA-08DF-4AB9-B0C7-3060D9676150}

@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: as-users-api
-  namespace: monitoring
+  namespace: default
 spec:
   namespaceSelector:
     matchNames:

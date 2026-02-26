@@ -3,6 +3,8 @@ kind: ServiceMonitor
 metadata:
   name: as-users-api
   namespace: default
+  labels:
+    release: stable
 spec:
   namespaceSelector:
     matchNames:

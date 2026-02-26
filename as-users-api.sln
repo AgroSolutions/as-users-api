@@ -36,10 +36,10 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{1A5C8E5B-40A0-459F-A211-1C0205ABF952}"
 	ProjectSection(SolutionItems) = preProject
-		servicemonitor-as-users-api.yaml = servicemonitor-as-users-api.yaml
 		k8s\users-api-config.yaml = k8s\users-api-config.yaml
 		k8s\users-api-deployment.yaml = k8s\users-api-deployment.yaml
 		k8s\users-api-service.yaml = k8s\users-api-service.yaml
+		users-api-monitor.yaml = users-api-monitor.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "observability", "observability", "{A3225175-9387-405C-8F51-A794090ED1CC}"

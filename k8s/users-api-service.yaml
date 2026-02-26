@@ -2,11 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: as-users-api-service
+  labels:
+    app: as-users-api
 spec:
   selector:
     app: as-users-api
   ports:
-    - protocol: TCP
+    - name: http
       port: 80
+      protocol: TCP
       targetPort: 8080
   type: LoadBalancer

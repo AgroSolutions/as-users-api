@@ -2,7 +2,7 @@
 
 ## 📚 Sobre o Projeto
 
-AgroSolutions (FCG) é uma cooperativa inovadora de gestão de colheitas e agricultura de precisão. Nosso objetivo é fornecer uma plataforma completa para agricultores, permitindo o monitoramento em tempo real das condições das plantações, análise de dados agrícolas e otimização das operações agrícolas. Com recursos avançados de análise de dados e integração com dispositivos IoT, a AgroSolutions capacita os agricultores a tomar decisões informadas para aumentar a produtividade e a sustentabilidade.
+AgroSolutions (AS) é uma cooperativa inovadora de gestão de colheitas e agricultura de precisão. Nosso objetivo é fornecer uma plataforma completa para agricultores, permitindo o monitoramento em tempo real das condições das plantações, análise de dados agrícolas e otimização das operações agrícolas. Com recursos avançados de análise de dados e integração com dispositivos IoT, a AgroSolutions capacita os agricultores a tomar decisões informadas para aumentar a produtividade e a sustentabilidade.
 
 [Documentação](https://www.notion.so/Agro-Solutions-2eba50ade7548089b001fb1756081926)
 

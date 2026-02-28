@@ -5,17 +5,7 @@
 AgroSolutions (AS) é uma cooperativa inovadora de gestão de colheitas e agricultura de precisão. Nosso objetivo é fornecer uma plataforma completa para agricultores, permitindo o monitoramento em tempo real das condições das plantações, análise de dados agrícolas e otimização das operações agrícolas. Com recursos avançados de análise de dados e integração com dispositivos IoT, a AgroSolutions capacita os agricultores a tomar decisões informadas para aumentar a produtividade e a sustentabilidade.
 
 [Documentação](https://www.notion.so/Agro-Solutions-2eba50ade7548089b001fb1756081926)
-
-
-## 🚀 Metas
-- [X] Gerenciamento de usuários.
-- [ ] Gerenciamento de propriedades e talhões.
-- [X] Autenticação de usuários com JWT.
-- [X] Documentação da API com swagger.
-- [ ] API de ingestão de dados.
-- [X] Pipeline CI/CD com deploy automatizado.
-- [X] Monitoramento de logs e desempenho com uma ferramenta de observabilidade (ex: Application Insights, Grafana).
-      
+  
 ## ⚙️ Tecnologias e Plataformas utilizadas
 
 - [.NET 8](https://dotnet.microsoft.com/download/dotnet/8.0)
@@ -25,7 +15,6 @@ AgroSolutions (AS) é uma cooperativa inovadora de gestão de colheitas e agricu
 - [XUnit](https://xunit.net/)
 - [Swagger](https://swagger.io/)
 - [Docker](https://www.docker.com/)
-- [New Relic](https://newrelic.com/pt/platform)
 
 ## 🛠️ Como Executar
 
